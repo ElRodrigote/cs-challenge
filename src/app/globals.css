@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Brave, Chrome, Edge, and Safari */
+#holidaysTable::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+/* Firefox */
+#holidaysTable {
+  scrollbar-width: thin;
+  scrollbar-height: thin;
+  scrollbar-color: var(--slate-300, #cbd5e1);
+}
+
+#holidaysTable::-webkit-scrollbar-thumb {
+  background: var(--slate-300, #cbd5e1);
+  border-radius: 12px;
+  box-shadow: 0px 2px 4px -2px rgba(17, 12, 34, 0.12);
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
