@@ -3,13 +3,15 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import Home from '../src/app/page';
 import { HolidaysTable, SelectCountry } from '../src/components';
-import { MOCKED_COUNTRY, MOCKED_HOLIDAYS_TABLE } from './mocks.ts';
+import { MOCKED_COUNTRY, MOCKED_HOLIDAYS_TABLE } from './mocks';
 
 describe('Public Holiday App', () => {
   it('renders a loading message', () => {
     render(<Home />);
 
-    expect(screen.getByTestId('country-loading')).toBeInTheDocument();
+    const countryLoader = screen.getByTestId('country-loading');
+
+    expect(countryLoader).toBeInTheDocument();
   });
 
   describe('Select Country', () => {
@@ -23,7 +25,9 @@ describe('Public Holiday App', () => {
         />
       );
 
-      expect(screen.getByTestId('country-error')).toBeInTheDocument();
+      const countryErrorText = screen.getByTestId('country-error');
+
+      expect(countryErrorText).toBeInTheDocument();
     });
 
     it('renders an Available Country selector with its label', () => {
@@ -35,7 +39,9 @@ describe('Public Holiday App', () => {
         />
       );
 
-      expect(screen.getByTestId('country-select')).toBeInTheDocument();
+      const countrySelect = screen.getByTestId('country-select');
+
+      expect(countrySelect).toBeInTheDocument();
     });
 
     it('should display the correct number of options', () => {
@@ -47,9 +53,9 @@ describe('Public Holiday App', () => {
         />
       );
 
-      expect(screen.getAllByRole('option').length).toBe(
-        MOCKED_COUNTRY.LIST.length
-      );
+      const options = screen.getAllByRole('option');
+
+      expect(options.length).toBe(MOCKED_COUNTRY.LIST.length);
     });
 
     it('should have the first Country in the list as default', () => {
@@ -61,11 +67,9 @@ describe('Public Holiday App', () => {
         />
       );
 
-      expect(
-        screen.getByRole('option', {
-          name: MOCKED_COUNTRY.LIST[0].name[0].text,
-        }).selected
-      ).toBe(true);
+      const combobox = screen.getByTestId('country-select') as HTMLInputElement;
+
+      expect(combobox.value).toBe('AT');
     });
 
     it('should allow user to change the selected country', () => {
@@ -77,10 +81,8 @@ describe('Public Holiday App', () => {
         />
       );
 
-      const combobox = screen.getByTestId('country-select');
+      const combobox = screen.getByTestId('country-select') as HTMLInputElement;
       const select = combobox.childNodes[0];
-      const austria = screen.getByRole('option', { name: 'Austria' });
-      const belgium = screen.getByRole('option', { name: 'Belgium' });
 
       fireEvent.change(select, {
         target: { value: 'BE' },

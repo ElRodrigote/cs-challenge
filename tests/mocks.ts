@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 export const MOCKED_COUNTRY = {
   ERROR: true,
   LIST: [
@@ -38,7 +40,7 @@ export const MOCKED_COUNTRY = {
       officialLanguages: ['NL', 'FR', 'DE'],
     },
   ],
-  ONCHANGE: (event: Event) => {},
+  ONCHANGE: (event: ChangeEvent<HTMLSelectElement>) => {},
   VALUE: 'AT',
 };
 
