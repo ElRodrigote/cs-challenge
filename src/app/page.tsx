@@ -7,14 +7,18 @@ import {
   DatePicker,
   HolidaysTable,
   SelectCountry,
+  UserCountry,
 } from '@/components';
-import { useCountryList, useHolidayList } from '@/hooks';
+import { useCountryList, useHolidayList, useUserGelocation } from '@/hooks';
 import { Country } from '@/types';
 
 export default function Home() {
+  const [isUserCountrySupported, setIsUserCountrySupported] =
+    useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedCountry, setSelectedCountry] = useState<Country>();
   const { countryList, countryListError } = useCountryList();
+  const { userCountry, userCountryError } = useUserGelocation();
   const {
     holidayListData: { holidayList, holidayError },
     holidayTableData,
@@ -35,28 +39,51 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (countryList.length) setSelectedCountry(countryList[0]);
-  }, [countryList]);
+    if (countryList.length) {
+      if (userCountry) {
+        const userDefaultCountry = countryList.find(
+          (country: Country) => country.isoCode === userCountry.isoCode
+        );
+
+        userDefaultCountry
+          ? setSelectedCountry(userDefaultCountry)
+          : setSelectedCountry(countryList[0]);
+        setIsUserCountrySupported(Boolean(userDefaultCountry));
+      } else {
+        setSelectedCountry(countryList[0]);
+        setIsUserCountrySupported(false);
+      }
+    }
+  }, [countryList, userCountry]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center space-y-6 p-4">
-      {countryList.length ? (
-        <SelectCountry
-          countries={countryList}
-          countryListError={countryListError}
-          value={selectedCountry?.isoCode ?? ''}
-          onChange={handleCountryChange}
-        />
-      ) : (
-        <p data-testid="country-loading">
-          {"We're loading the available country list"}
-        </p>
-      )}
+      <div className="flex items-center space-x-4">
+        {countryList.length ? (
+          <SelectCountry
+            countries={countryList}
+            countryListError={countryListError}
+            value={selectedCountry?.isoCode ?? ''}
+            onChange={handleCountryChange}
+          />
+        ) : (
+          <p data-testid="country-loading">
+            {"We're loading the available country list"}
+          </p>
+        )}
+        {userCountry && (
+          <UserCountry
+            isSupportedCountry={isUserCountrySupported}
+            userCountryError={userCountryError}
+            userCountryName={userCountry.name}
+          />
+        )}
+      </div>
 
       {!holidayList ? (
         <p data-testid="no-holidays">There are no Holidays to display</p>
       ) : (
-        <div className="flex items-center justify-center space-x-2 w-full">
+        <div className="flex items-center justify-center space-x-4 w-full">
           <div className="flex flex-col items-end w-1/5 h-[500px]">
             <DatePicker date={selectedDate} onChange={setSelectedDate} />
             <HolidaysTable
