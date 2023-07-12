@@ -21,7 +21,7 @@ export const SelectCountry = ({
   value,
 }: SelectProps) =>
   countryListError ? (
-    <p className="text-red-700">
+    <p className="text-red-700" data-testid="country-error">
       {
         "We're unable to load the country list right now. Please, try again later."
       }
@@ -34,6 +34,7 @@ export const SelectCountry = ({
         value={value}
         onChange={onChange}
         id={SELECT_COUNTRY_ID}
+        data-testid="country-select"
       >
         {countries.map((country: Country) => {
           const countryName =
@@ -42,7 +43,11 @@ export const SelectCountry = ({
             )?.text ?? country.name[0].text;
 
           return (
-            <option key={country.isoCode} value={country.isoCode}>
+            <option
+              key={country.isoCode}
+              value={country.isoCode}
+              data-testid={`country-option-${country.isoCode}`}
+            >
               {countryName}
             </option>
           );

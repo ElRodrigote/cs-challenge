@@ -48,11 +48,13 @@ export default function Home() {
           onChange={handleCountryChange}
         />
       ) : (
-        <p>{"We're loading the available country list"}</p>
+        <p data-testid="country-loading">
+          {"We're loading the available country list"}
+        </p>
       )}
 
       {!holidayList ? (
-        <p>There are no Holidays to display</p>
+        <p data-testid="no-holidays">There are no Holidays to display</p>
       ) : (
         <div className="flex items-center justify-center space-x-2 w-full">
           <div className="flex flex-col items-end w-1/5 h-[500px]">

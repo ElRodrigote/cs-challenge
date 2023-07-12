@@ -13,13 +13,17 @@ interface TableProps {
 
 export const HolidaysTable = ({ holidayData, holidayError }: TableProps) =>
   holidayError ? (
-    <p className="text-red-700">
+    <p className="text-red-700" data-testid="holidays-table-error">
       {
         "We're unable to load the holiday table right now. Please, try again later."
       }
     </p>
   ) : (
-    <div className="h-[70%] w-full overflow-y-scroll" id="holidaysTable">
+    <div
+      className="h-[70%] w-full overflow-y-scroll"
+      id="holidaysTable"
+      data-testid="holidays-table"
+    >
       <table className="h-full overflow-y-auto min-w-full divide-y bg-slate-50  divide-gray-200 rounded-md">
         <thead className="relative">
           <tr className="text-xs text-left font-semibold text-gray-500 uppercase tracking-wider backdrop-blur-sm sticky top-0">
@@ -29,7 +33,11 @@ export const HolidaysTable = ({ holidayData, holidayError }: TableProps) =>
         </thead>
         <tbody className="divide-y divide-gray-200">
           {holidayData.map((holiday) => (
-            <tr key={holiday.id} className="overflow-x-scroll">
+            <tr
+              key={holiday.id}
+              className="overflow-x-scroll"
+              data-testid="holidays-table-row"
+            >
               <td className="px-6 py-4 w-14 whitespace-nowrap text-sm font-medium text-gray-900">
                 {holiday.date}
               </td>
