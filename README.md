@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chainsafe Challenge
 
-## Getting Started
+Welcome! :wave:
 
-First, run the development server:
+This is my approach to solving [Chainsafe](https://chainsafe.io/) Frontend challenge.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## How to take a look?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Very simple!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can click [this link right here](https://cs-challenge.vercel.app/) to check out the deployed version in Vercel.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+But if you would like to run it locally and take a look at the code:
 
-## Learn More
+1. Clone this repository: `git clone https://github.com/ElRodrigote/cs-challenge.git`
+2. `cd cs-challenge`
+3. Run `yarn install` or `npm install`, and maybe go for a tea :tea: or maybe a mate :mate: because it takes a few minutes
+4. After installation is done, run `yarn dev` and open [your localhost](http://localhost:3000) to see the result :sparkles:.
 
-To learn more about Next.js, take a look at the following resources:
+## Some Tools
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ok so, many things happening here. Some tools I've used for this project:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- `NextJS` - Rendering, but with that sweet type-safe spice.
+- `TailwindCSS` - For styling.
+- `react-big-calendar` - To render and handle the Holidays Calendar.
+- `react-datepicker` - To render and handle the Month and Year datepicking.
+- `@testing-library/react and Jest` - For testing.
+- `openholidaysapi API` - Fetches Holidays for a supported country list.
+- `ipapi API` - For user country geolocation.
+- `Vercel` - Here I deployed my project to go live!
 
-## Deploy on Vercel
+And that's pretty much it regarding tooling in general.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Final Thoughts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+I learned a lot about manipulating libraries unknown to me like big calendar and react-datepicker, struggled a bit specially with the Calendar. Although I do not 100% like the libs, APIs and styles I've used, as time was pressing decided to go forth like this. Hope you like it! :raised_hands:
+
+Things I'd like to improve:
+
+- Keep adding tests.
+- Create consisten styling and placing some icons. I'd like to improve colors, spacing, and bring dark theme support.
+- Improve mobile support, right now mobile view breaks everything.
+- Get a more comprehensive API to keep increasing country holidays support
+- Bring i18n to date format
